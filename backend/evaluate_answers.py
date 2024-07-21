@@ -44,5 +44,12 @@ def load_answers(file_path):
     result = {}
     for qa in question_answer_pairs:
         qa_data = qa.split("\n")
-        result[qa_data[0]] = qa_data[1]
+        if len(qa_data) < 1:
+            continue
+        elif len(qa_data) == 1:
+            result[qa_data[0]] = ""
+        elif len(qa_data) == 2:
+            result[qa_data[0]] = qa_data[1]
+        else:
+            result[qa_data[0]] = "\n".join(qa_data[1:])
     return result
