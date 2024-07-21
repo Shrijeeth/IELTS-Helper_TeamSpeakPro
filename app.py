@@ -7,7 +7,7 @@ from backend import transcribe
 
 load_dotenv()
 
-st.title("IELTS-Helper")
+st.title("SpeakPro")
 
 parts = ["Part 1", "Part 2", "Part 3"]
 
@@ -31,8 +31,7 @@ def question_page(question_text, question_number, part_str):
     audio_data = st_audiorec()
 
     if audio_data is not None:
-        st.audio(audio_data, format="audio/wav")
-        if st.button("Transcribe", key=f"transcribe_button_{part}_{question_number}"):
+        if st.button("Submit", key=f"transcribe_button_{part}_{question_number}"):
             response = transcribe.transcribe(audio_data, question_text)
             st.session_state[f"response_{part_str}_{question_number}"] = response
             st.session_state[f"current_question_{part_str}"] += 1
