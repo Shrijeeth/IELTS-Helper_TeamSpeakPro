@@ -1,9 +1,24 @@
 Question: What's your name?
-Answer: Hello. My name is Sridhut.Question: What do you do?
-Answer: Hello. Hello.Question: Do you live in a house or an apartment?
-Answer: I live in and house.Question: How often do you go to the cinema?
-Answer: Twice a month.Question: What's your favorite type of music?
-Answer: Question: Do you prefer to spend time alone or with friends?
-Answer: With friends. Porcelain.Question: What's the most interesting thing you've learned recently?
-Answer: Fine tuning large language models.Question: Do you like trying new foods or do you stick to what you know?
+Answer: Hello, my name is Ridithe.
+
+Question: What do you do?
 Answer: Hello. Hello.
+
+Question: Do you like living in a big city or a small town?
+Answer: Big city.
+
+Question: How often do you use the internet?
+Answer: Post every minute.
+
+Question: What's your favorite type of music?
+Answer: Jazz. Jazz music.
+
+Question: Do you prefer to spend time with your family or friends?
+Answer: Yes, of course.
+
+Question: What's the most interesting thing you've learned recently?
+Answer: 
+
+Question: Do you like trying new foods or do you prefer to stick to what you know?
+Answer: 
+

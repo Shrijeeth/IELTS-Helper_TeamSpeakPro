@@ -2,7 +2,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from st_audiorec import st_audiorec
 
-from backend import generate_questions, utils
+from backend import generate_questions, utils, evaluate_answers
 from backend import transcribe
 
 load_dotenv()
@@ -47,6 +47,10 @@ if current_question < len(lines):
 else:
     st.write("### All questions have been answered.")
     st.write("Thank you for your responses!")
-    for i in range(len(lines)):
-        response = st.session_state.get(f"response_{i}", None)
-        st.write(f"**Transcription for Question {i + 1}:** {response}")
+    response = evaluate_answers.load_answers("./backend/data/Answers_part01.txt")
+    print(response)
+    for q, a in response.items():
+        evaluation = evaluate_answers.evaluate_speech(q, a)
+        st.write(f"**Question: {q}**")
+        st.write(f"**User Answer: {a}**")
+        st.write(f"**AI Evaluation: {evaluation}**")

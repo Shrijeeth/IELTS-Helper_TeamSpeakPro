@@ -1,8 +1,15 @@
 What's your name?
+
 What do you do?
-Do you live in a house or an apartment?
-How often do you go to the cinema?
+
+Do you like living in a big city or a small town?
+
+How often do you use the internet?
+
 What's your favorite type of music?
-Do you prefer to spend time alone or with friends?
+
+Do you prefer to spend time with your family or friends?
+
 What's the most interesting thing you've learned recently?
-Do you like trying new foods or do you stick to what you know?
+
+Do you like trying new foods or do you prefer to stick to what you know?
