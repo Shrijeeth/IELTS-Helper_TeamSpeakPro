@@ -1,0 +1,8 @@
+What's your name?
+What do you do?
+Do you live in a house or an apartment?
+How often do you go to the cinema?
+What's your favorite type of music?
+Do you prefer to spend time alone or with friends?
+What's the most interesting thing you've learned recently?
+Do you like trying new foods or do you stick to what you know?

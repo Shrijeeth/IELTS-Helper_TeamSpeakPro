@@ -1,0 +1,5 @@
+# Environment and Library Files
+*.env
+venv
+myenv
+.idea

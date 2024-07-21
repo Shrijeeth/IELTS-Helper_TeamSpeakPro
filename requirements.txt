@@ -1,0 +1,6 @@
+streamlit
+streamlit-audiorec==0.1.3
+numpy==2.0.0
+together==1.2.2
+assemblyai==0.31.0
+python-dotenv==1.0.1
