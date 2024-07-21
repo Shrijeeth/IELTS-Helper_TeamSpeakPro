@@ -11,4 +11,4 @@ def transcribe(audio_data, question):
 
     transcript = transcriber.transcribe(audio_data, config)
 
-    save_text_to_file("Answers_part01.txt", transcript.text, question)
+    save_text_to_file("Answers.txt", transcript.text, question)

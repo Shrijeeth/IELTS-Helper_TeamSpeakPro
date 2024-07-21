@@ -9,48 +9,60 @@ load_dotenv()
 
 st.title("IELTS-Helper")
 
-st.subheader("Your Part-1 Test Starts Now")
+parts = ["Part 1", "Part 2", "Part 3"]
+
+if "current_part" not in st.session_state:
+    st.session_state["current_part"] = 0
+
+if "answers_generated" not in st.session_state:
+    st.session_state["answers_generated"] = False
+
+for part in parts:
+    if f"current_question_{part}" not in st.session_state:
+        st.session_state[f"current_question_{part}"] = 0
+
+    if f"questions_generated_{part}" not in st.session_state:
+        st.session_state[f"questions_generated_{part}"] = False
 
 
-def question_page(question_text, question_number):
-    st.write(f"### Question {question_number}")
+def question_page(question_text, question_number, part_str):
+    st.write(f"### {part_str} - Question {question_number}")
     st.write(question_text)
     audio_data = st_audiorec()
 
     if audio_data is not None:
         st.audio(audio_data, format="audio/wav")
-        if st.button("Transcribe", key=f"transcribe_button_{question_number}"):
+        if st.button("Transcribe", key=f"transcribe_button_{part}_{question_number}"):
             response = transcribe.transcribe(audio_data, question_text)
-            st.session_state[f"response_{question_number}"] = response
-            st.session_state["current_question"] += 1
+            st.session_state[f"response_{part_str}_{question_number}"] = response
+            st.session_state[f"current_question_{part_str}"] += 1
             st.experimental_rerun()
 
 
-if "current_question" not in st.session_state:
-    st.session_state["current_question"] = 0
+def load_questions_for_part(part_str):
+    if not st.session_state[f"answers_generated"]:
+        utils.create_file(f"Answers.txt")
+        st.session_state[f"answers_generated"] = True
+    if not st.session_state[f"questions_generated_{part_str}"]:
+        generate_questions.generate_part(part_str)
+        st.session_state[f"questions_generated_{part_str}"] = True
+    return generate_questions.load_questions(f"./backend/data/Question_for_{part_str.replace(' ', '')}.txt")
 
-if "questions_generated" not in st.session_state:
-    st.session_state["questions_generated"] = False
 
-if not st.session_state["questions_generated"]:
-    utils.create_file("Answers_part01.txt")
-    generate_questions.generate_part1()
-    st.session_state["questions_generated"] = True
+current_part = parts[st.session_state["current_part"]]
+lines = load_questions_for_part(current_part)
 
-lines = generate_questions.load_questions("./backend/data/Question_for_part01.txt")
-
-current_question = st.session_state["current_question"]
+current_question = st.session_state[f"current_question_{current_part}"]
 
 if current_question < len(lines):
     question = lines[current_question].strip()
-    question_page(question, current_question + 1)
+    question_page(question, current_question + 1, current_part)
 else:
-    st.write("### All questions have been answered.")
-    st.write("Thank you for your responses!")
-    response = evaluate_answers.load_answers("./backend/data/Answers_part01.txt")
-    print(response)
-    for q, a in response.items():
-        evaluation = evaluate_answers.evaluate_speech(q, a)
-        st.write(f"**Question: {q}**")
-        st.write(f"**User Answer: {a}**")
-        st.write(f"**AI Evaluation: {evaluation}**")
+    st.write(f"### All questions have been answered in {current_part}.")
+    st.session_state["current_part"] += 1
+    if st.session_state["current_part"] < len(parts):
+        st.experimental_rerun()
+    else:
+        st.write("### All parts have been completed. Thank you for your responses!")
+        st.write("### Here is your detailed AI Feedback:")
+        st.write(evaluate_answers.request_feedback())
